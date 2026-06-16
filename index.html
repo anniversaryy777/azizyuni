@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5 Tahun Bersama</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;700;800&display=swap');
+
+  :root {
+    --pink: #FFB5C8;
+    --soft-pink: #FFE0EA;
+    --lavender: #D4BBFF;
+    --soft-purple: #EDE0FF;
+    --peach: #FFD6B0;
+    --mint: #B8F0D8;
+    --yellow: #FFF0A0;
+    --deep-pink: #FF6B9D;
+    --deep-purple: #9B6FD4;
+    --text-dark: #5A3060;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, #FFE0EA 0%, #EDE0FF 50%, #FFE0EA 100%);
+    background-size: 400% 400%;
+    animation: bgShift 8s ease infinite;
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: var(--text-dark);
+  }
+
+  @keyframes bgShift {
+    0%,100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* FLOATING ELEMENTS */
+  .floaties { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+
+  .floatie { position: absolute; animation: floatUp linear infinite; opacity: 0.55; }
+  .floatie img { width: 100%; height: 100%; }
+
+  @keyframes floatUp {
+    0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.55; }
+    90% { opacity: 0.55; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+  }
+
+  /* MAIN CONTENT */
+  .container { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; padding: 2rem 1rem; }
+
+  /* HEADER */
+  .hero { text-align: center; padding: 3rem 1rem 2rem; position: relative; }
+
+  .balloon-row { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 1rem; }
+  .balloon-row img { width: 55px; animation: balloonBob 2s ease-in-out infinite; }
+  .balloon-row img:nth-child(2) { animation-delay: 0.3s; }
+  .balloon-row img:nth-child(3) { animation-delay: 0.6s; }
+  .balloon-row img:nth-child(4) { animation-delay: 0.9s; }
+  .balloon-row img:nth-child(5) { animation-delay: 1.2s; }
+
+  @keyframes balloonBob {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-12px) rotate(5deg); }
+  }
+
+  .year-badge {
+    display: inline-block; font-family: 'Pacifico', cursive; font-size: 5rem; color: white;
+    text-shadow: 0 4px 15px rgba(255,107,157,0.5);
+    background: linear-gradient(135deg, var(--deep-pink), var(--deep-purple));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+  .hero-title { font-family: 'Pacifico', cursive; font-size: 2rem; color: var(--deep-purple); margin: 0.5rem 0 0.3rem; text-shadow: 2px 2px 0 rgba(212,187,255,0.6); }
+  .hero-sub { font-size: 1.1rem; color: #9B6FD4; font-weight: 600; }
+
+  /* MUSIC PLAYER */
+  .music-bar { background: white; border-radius: 50px; padding: 0.8rem 1.5rem; margin: 1.5rem auto; display: flex; align-items: center; gap: 1rem; max-width: 360px; box-shadow: 0 8px 25px rgba(212,187,255,0.4); border: 2px solid var(--lavender); }
+  #play-btn { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--deep-pink), var(--deep-purple)); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: transform 0.2s; }
+  #play-btn:hover { transform: scale(1.1); }
+  #play-btn svg { fill: white; width: 18px; height: 18px; }
+  .music-info { flex: 1; }
+  .music-title { font-size: 0.85rem; font-weight: 700; color: var(--deep-purple); }
+  .music-artist { font-size: 0.75rem; color: #B89FD4; }
+  .eq-bars { display: flex; align-items: flex-end; gap: 2px; height: 24px; }
+  .eq-bar { width: 4px; background: linear-gradient(to top, var(--deep-pink), var(--deep-purple)); border-radius: 2px; animation: eqAnim 0.6s ease-in-out infinite alternate; }
+  .eq-bar:nth-child(1) { height: 10px; animation-duration: 0.5s; }
+  .eq-bar:nth-child(2) { height: 18px; animation-duration: 0.7s; }
+  .eq-bar:nth-child(3) { height: 12px; animation-duration: 0.4s; }
+  .eq-bar:nth-child(4) { height: 20px; animation-duration: 0.6s; }
+  .eq-bar:nth-child(5) { height: 8px; animation-duration: 0.8s; }
+  @keyframes eqAnim { from { transform: scaleY(0.3); } to { transform: scaleY(1); } }
+  .eq-bars.paused .eq-bar { animation-play-state: paused; transform: scaleY(0.3); }
+
+  /* COUNTDOWN */
+  .countdown-card { background: white; border-radius: 24px; padding: 1.5rem; margin: 1.5rem 0; box-shadow: 0 8px 30px rgba(212,187,255,0.35); border: 2px solid var(--soft-pink); text-align: center; }
+  .countdown-title { font-family: 'Pacifico', cursive; font-size: 1.1rem; color: var(--deep-pink); margin-bottom: 1rem; }
+  .countdown-grid { display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap; }
+  .count-box { background: linear-gradient(135deg, var(--soft-pink), var(--soft-purple)); border-radius: 16px; padding: 0.8rem 1rem; min-width: 70px; border: 2px solid var(--lavender); }
+  .count-num { font-family: 'Pacifico', cursive; font-size: 2rem; color: var(--deep-purple); line-height: 1; }
+  .count-label { font-size: 0.7rem; font-weight: 700; color: #B89FD4; text-transform: uppercase; margin-top: 4px; }
+
+  /* PHOTO GRID */
+  .photos-section { margin: 2rem 0; }
+  .photos-title { font-family: 'Pacifico', cursive; font-size: 1.5rem; color: var(--deep-purple); text-align: center; margin-bottom: 1.2rem; }
+  .photo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .photo-card { background: white; border-radius: 20px; overflow: hidden; border: 3px solid var(--soft-pink); box-shadow: 0 8px 20px rgba(212,187,255,0.3); cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; position: relative; }
+  .photo-card:hover { transform: rotate(-2deg) scale(1.03); box-shadow: 0 15px 35px rgba(212,187,255,0.5); z-index: 2; }
+  .photo-card:nth-child(2):hover { transform: rotate(2deg) scale(1.03); }
+  .photo-card:nth-child(3):hover { transform: rotate(2deg) scale(1.03); }
+  .photo-card:nth-child(4):hover { transform: rotate(-2deg) scale(1.03); }
+  .photo-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; }
+  .photo-caption { padding: 0.6rem 0.8rem; font-size: 0.8rem; font-weight: 700; color: var(--deep-purple); text-align: center; background: white; }
+  .photo-sticker { position: absolute; top: -10px; right: -10px; width: 45px; height: 45px; animation: spin 4s linear infinite; }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  /* LOVE COUNTER */
+  .love-counter { background: white; border-radius: 24px; padding: 1.5rem; margin: 1.5rem 0; box-shadow: 0 8px 30px rgba(255,107,157,0.2); border: 2px solid var(--pink); text-align: center; }
+  .counter-title { font-family: 'Pacifico', cursive; font-size: 1.1rem; color: var(--deep-pink); margin-bottom: 1rem; }
+  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; }
+  .stat-item { background: linear-gradient(135deg, var(--soft-pink), var(--yellow)); border-radius: 16px; padding: 1rem 0.5rem; border: 2px solid var(--pink); }
+  .stat-num { font-family: 'Pacifico', cursive; font-size: 1.6rem; color: var(--deep-pink); }
+  .stat-desc { font-size: 0.7rem; font-weight: 700; color: #C0779A; margin-top: 2px; }
+
+  /* POLAROID MEMORIES */
+  .memories { margin: 2rem 0; }
+  .memories-title { font-family: 'Pacifico', cursive; font-size: 1.5rem; color: var(--deep-purple); text-align: center; margin-bottom: 1.5rem; }
+  .timeline { position: relative; padding-left: 2.5rem; }
+  .timeline::before { content: ''; position: absolute; left: 14px; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, var(--deep-pink), var(--deep-purple), var(--mint)); border-radius: 2px; }
+  .timeline-item { position: relative; margin-bottom: 1.5rem; background: white; border-radius: 18px; padding: 1rem 1.2rem; box-shadow: 0 6px 20px rgba(212,187,255,0.25); border: 2px solid var(--soft-purple); animation: slideIn 0.5s ease both; }
+  @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+  .timeline-dot { position: absolute; left: -2.1rem; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; border-radius: 50%; background: white; border: 3px solid var(--deep-pink); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; }
+  .timeline-year { font-size: 0.75rem; font-weight: 800; color: var(--deep-pink); text-transform: uppercase; letter-spacing: 0.05em; }
+  .timeline-text { font-size: 0.95rem; font-weight: 600; color: var(--text-dark); margin-top: 0.2rem; }
+
+  /* LOVE NOTE */
+  .love-note { background: linear-gradient(135deg, #FFF9E0, #FFE8F0); border: 3px dashed var(--pink); border-radius: 24px; padding: 2rem; margin: 2rem 0; text-align: center; position: relative; overflow: hidden; }
+  .love-note::before, .love-note::after { content: ''; position: absolute; border-radius: 50%; background: var(--soft-pink); opacity: 0.5; }
+  .love-note::before { width: 200px; height: 200px; top: -100px; left: -100px; }
+  .love-note::after { width: 150px; height: 150px; bottom: -75px; right: -75px; }
+  .love-note-text { font-size: 1rem; font-weight: 600; color: var(--text-dark); line-height: 1.7; position: relative; z-index: 1; font-style: italic; }
+  .love-note-sig { font-family: 'Pacifico', cursive; font-size: 1.5rem; color: var(--deep-pink); margin-top: 1rem; position: relative; z-index: 1; }
+
+  /* HEART BUTTON */
+  .heart-section { text-align: center; margin: 2rem 0; }
+  #heart-btn { background: linear-gradient(135deg, var(--deep-pink), var(--deep-purple)); border: none; border-radius: 50px; padding: 1rem 2.5rem; font-family: 'Nunito', sans-serif; font-size: 1.1rem; font-weight: 800; color: white; cursor: pointer; display: inline-flex; align-items: center; gap: 0.6rem; box-shadow: 0 8px 25px rgba(255,107,157,0.45); transition: transform 0.2s, box-shadow 0.2s; }
+  #heart-btn:hover { transform: scale(1.05) translateY(-3px); box-shadow: 0 14px 35px rgba(255,107,157,0.55); }
+  #heart-btn:active { transform: scale(0.96); }
+  #heart-btn svg { width: 24px; height: 24px; fill: white; }
+  #heart-count { font-size: 0.9rem; font-weight: 700; color: var(--deep-purple); margin-top: 0.7rem; transition: all 0.3s; }
+
+  /* CONFETTI */
+  .confetti-piece { position: fixed; width: 10px; height: 10px; border-radius: 2px; pointer-events: none; z-index: 9999; animation: confettiFall 2s ease-in forwards; }
+  @keyframes confettiFall { 0% { opacity: 1; transform: translateY(-20px) rotate(0deg); } 100% { opacity: 0; transform: translateY(100vh) rotate(720deg); } }
+
+  /* MODAL */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(90,48,96,0.55); z-index: 500; align-items: center; justify-content: center; padding: 1rem; }
+  .modal-overlay.active { display: flex; }
+  .modal-box { background: white; border-radius: 28px; padding: 2rem; max-width: 420px; width: 100%; text-align: center; border: 3px solid var(--lavender); box-shadow: 0 20px 60px rgba(90,48,96,0.2); animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both; }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: scale(1); } }
+  .modal-close { position: absolute; top: 1rem; right: 1rem; background: var(--soft-pink); border: none; border-radius: 50%; width: 36px; height: 36px; font-size: 1.2rem; cursor: pointer; font-weight: 800; color: var(--deep-pink); }
+  .modal-box h3 { font-family: 'Pacifico', cursive; font-size: 1.4rem; color: var(--deep-purple); margin-bottom: 0.8rem; }
+  .modal-box p { font-size: 0.9rem; font-weight: 600; color: var(--text-dark); line-height: 1.6; }
+
+  /* KUPON */
+  .coupons { margin: 2rem 0; }
+  .coupons-title { font-family: 'Pacifico', cursive; font-size: 1.4rem; color: var(--deep-purple); text-align: center; margin-bottom: 0.5rem; }
+  .coupons-sub { text-align: center; font-size: 0.85rem; font-weight: 600; color: #B89FD4; margin-bottom: 1.2rem; }
+  .coupon-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+  .coupon { background: white; border-radius: 18px; padding: 1rem; text-align: center; border: 2.5px dashed var(--pink); cursor: pointer; transition: transform 0.25s; position: relative; overflow: hidden; }
+  .coupon.used { opacity: 0.5; pointer-events: none; }
+  .coupon.used::after { content: 'SUDAH DIPAKAI'; position: absolute; inset: 0; background: rgba(255,255,255,0.8); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.75rem; color: #C0779A; letter-spacing: 0.05em; }
+  .coupon:hover:not(.used) { transform: scale(1.04) rotate(-1deg); }
+  .coupon-icon { font-size: 2rem; margin-bottom: 0.4rem; }
+  .coupon-icon img { width: 42px; }
+  .coupon-text { font-size: 0.8rem; font-weight: 700; color: var(--text-dark); }
+
+  /* WHEEL */
+  .wheel-section { background: white; border-radius: 24px; padding: 1.5rem; margin: 2rem 0; box-shadow: 0 8px 30px rgba(212,187,255,0.3); border: 2px solid var(--soft-purple); text-align: center; }
+  .wheel-title { font-family: 'Pacifico', cursive; font-size: 1.3rem; color: var(--deep-purple); margin-bottom: 0.4rem; }
+  .wheel-sub { font-size: 0.85rem; font-weight: 600; color: #B89FD4; margin-bottom: 1.2rem; }
+  #wheel-canvas { border-radius: 50%; box-shadow: 0 8px 25px rgba(155,111,212,0.35); margin-bottom: 1rem; max-width: 260px; }
+  #spin-btn { background: linear-gradient(135deg, var(--deep-purple), var(--deep-pink)); border: none; border-radius: 50px; padding: 0.8rem 2rem; font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 800; color: white; cursor: pointer; box-shadow: 0 6px 20px rgba(155,111,212,0.4); transition: transform 0.2s; }
+  #spin-btn:hover { transform: scale(1.05); }
+  #spin-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  #wheel-result { margin-top: 0.8rem; font-size: 1rem; font-weight: 700; color: var(--deep-pink); min-height: 1.5rem; }
+
+  /* FOOTER */
+  .footer { text-align: center; padding: 2rem 1rem 3rem; }
+  .footer-hearts { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 1rem; }
+  .footer-hearts img { width: 28px; animation: heartbeat 1.2s ease-in-out infinite; }
+  .footer-hearts img:nth-child(2) { animation-delay: 0.2s; }
+  .footer-hearts img:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes heartbeat { 0%, 100% { transform: scale(1); } 14% { transform: scale(1.2); } 28% { transform: scale(1); } 42% { transform: scale(1.15); } 70% { transform: scale(1); } }
+  .footer-text { font-family: 'Pacifico', cursive; font-size: 1rem; color: var(--deep-pink); }
+  .playing .music-bar { border-color: var(--deep-pink); }
+  .upload-notice { background: var(--yellow); border: 2px dashed #E5C000; border-radius: 14px; padding: 0.8rem 1rem; text-align: center; font-size: 0.8rem; font-weight: 700; color: #8A7000; margin-bottom: 1rem; }
+
+  @media (max-width: 500px) {
+    .year-badge { font-size: 3.5rem; }
+    .hero-title { font-size: 1.5rem; }
+    .stats-grid { grid-template-columns: repeat(3,1fr); gap: 0.5rem; }
+    .coupon-list { grid-template-columns: repeat(2,1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="floaties" id="floaties"></div>
+
+<!-- BAGIAN MUSIK: GANTI SRC DENGAN NAMA FILE LAGUMU -->
+<audio id="bgm" loop>
+  <source src="music/music1.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+
+  <div class="hero">
+    <div class="balloon-row">
+      <svg width="55" height="80" viewBox="0 0 55 80"><ellipse cx="27" cy="32" rx="22" ry="28" fill="#FFB5C8"/><line x1="27" y1="60" x2="27" y2="80" stroke="#FFB5C8" stroke-width="2"/><ellipse cx="27" cy="32" rx="10" ry="8" fill="rgba(255,255,255,0.3)" transform="translate(-6,-8)"/></svg>
+      <svg width="55" height="80" viewBox="0 0 55 80"><ellipse cx="27" cy="32" rx="22" ry="28" fill="#D4BBFF"/><line x1="27" y1="60" x2="27" y2="80" stroke="#D4BBFF" stroke-width="2"/><ellipse cx="27" cy="32" rx="10" ry="8" fill="rgba(255,255,255,0.3)" transform="translate(-6,-8)"/></svg>
+      <svg width="55" height="80" viewBox="0 0 55 80"><ellipse cx="27" cy="32" rx="22" ry="28" fill="#FFD6B0"/><line x1="27" y1="60" x2="27" y2="80" stroke="#FFD6B0" stroke-width="2"/><ellipse cx="27" cy="32" rx="10" ry="8" fill="rgba(255,255,255,0.3)" transform="translate(-6,-8)"/></svg>
+      <svg width="55" height="80" viewBox="0 0 55 80"><ellipse cx="27" cy="32" rx="22" ry="28" fill="#B8F0D8"/><line x1="27" y1="60" x2="27" y2="80" stroke="#B8F0D8" stroke-width="2"/><ellipse cx="27" cy="32" rx="10" ry="8" fill="rgba(255,255,255,0.3)" transform="translate(-6,-8)"/></svg>
+      <svg width="55" height="80" viewBox="0 0 55 80"><ellipse cx="27" cy="32" rx="22" ry="28" fill="#FFF0A0"/><line x1="27" y1="60" x2="27" y2="80" stroke="#FFF0A0" stroke-width="2"/><ellipse cx="27" cy="32" rx="10" ry="8" fill="rgba(255,255,255,0.3)" transform="translate(-6,-8)"/></svg>
+    </div>
+
+    <div class="year-badge">Aziz & Yuni</div>
+    <div class="hero-title">Happy anniversary</div>
+    <div class="hero-sub"></div>
+  </div>
+
+  <div class="music-bar" id="music-bar">
+    <button id="play-btn" onclick="toggleMusic()" title="Play/Pause">
+      <svg id="play-icon" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+    </button>
+    <div class="music-info">
+      <div class="music-title">shape of my heart</div>
+      <div class="music-artist">Spesial for u</div>
+    </div>
+    <div class="eq-bars paused" id="eq">
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+    </div>
+  </div>
+
+  <div class="countdown-card">
+    <div class="countdown-title">Sudah bersama selama...</div>
+    <div class="countdown-grid" id="countdown-grid">
+      <!-- Angka di bawah ini sudah dikunci jadi 1461 -->
+      <div class="count-box"><div class="count-num" id="c-days">1461</div><div class="count-label">Hari</div></div>
+      <div class="count-box"><div class="count-num" id="c-hours">0</div><div class="count-label">Jam</div></div>
+      <div class="count-box"><div class="count-num" id="c-mins">0</div><div class="count-label">Menit</div></div>
+      <div class="count-box"><div class="count-num" id="c-secs">0</div><div class="count-label">Detik</div></div>
+    </div>
+  </div>
+
+  <div class="photos-section">
+    <div class="photos-title">Momen Kita</div>
+
+    <div class="upload-notice">
+      
+    </div>
+
+    <div class="photo-grid">
+      <div class="photo-card" onclick="openPhoto('You re always beautiful.')">
+        <img src="foto/foto1.jpeg" alt="you" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x400/D4BBFF/5A3060?text=Taruh+Foto+1+Disini';">
+        <div class="photo-caption">you</div>
+        <svg class="photo-sticker" viewBox="0 0 45 45"><circle cx="22" cy="22" r="20" fill="#FFF0A0" stroke="#FFD700" stroke-width="2"/><text x="22" y="27" text-anchor="middle" font-size="18">&#10084;&#65039;</text></svg>
+      </div>
+
+      <div class="photo-card" onclick="openPhoto('You look stunning today', 'Kamu orang yang paling aku cintai')">
+        <img src="foto/foto2.jpeg" alt="always" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x400/FFB5C8/5A3060?text=Taruh+Foto+2+Disini';">
+        <div class="photo-caption">always</div>
+        <svg class="photo-sticker" viewBox="0 0 45 45" style="top:-8px;right:-8px;"><circle cx="22" cy="22" r="20" fill="#FFB5C8" stroke="#FF6B9D" stroke-width="2"/><text x="22" y="27" text-anchor="middle" font-size="18">&#127880;</text></svg>
+      </div>
+
+      <div class="photo-card" onclick="openPhoto('Your smile is beautiful.a', 'Kamu selalu tau cara buat aku merasa spesial. Thank you sayang.')">
+        <img src="foto/foto3.jpeg" alt="very" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x400/B8F0D8/0F6E56?text=Taruh+Foto+3+Disini';">
+        <div class="photo-caption">very</div>
+        <svg class="photo-sticker" viewBox="0 0 45 45"><circle cx="22" cy="22" r="20" fill="#B8F0D8" stroke="#1D9E75" stroke-width="2"/><text x="22" y="27" text-anchor="middle" font-size="18">&#127774;</text></svg>
+      </div>
+
+      <div class="photo-card" onclick="openPhoto('You re naturally beautiful.', 'Setiap hari sama kamu adalah hadiah. Happy anniversary ya sayang!')">
+        <img src="foto/foto4.jpeg" alt="beautiful" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x400/FFF0A0/8A7000?text=Taruh+Foto+4+Disini';">
+        <div class="photo-caption">beautiful</div>
+        <svg class="photo-sticker" viewBox="0 0 45 45"><circle cx="22" cy="22" r="20" fill="#FFF0A0" stroke="#E5C000" stroke-width="2"/><text x="22" y="27" text-anchor="middle" font-size="18">&#11088;</text></svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="love-counter">
+    <div class="counter-title">Berapa banyak kita sudah...</div>
+    <div class="stats-grid">
+      <div class="stat-item">
+        <!-- Angka di bawah ini sudah dikunci jadi 1461 -->
+        <div class="stat-num" id="stat-days">1461</div>
+        <div class="stat-desc">Hari bersama</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">&#8734;</div>
+        <div class="stat-desc">sayang</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" id="stat-hugs">∞</div>
+        <div class="stat-desc">cinta</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="memories">
+    <div class="memories-title">Perjalanan Kita</div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot">
+          <svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 1.5C5.5 1.5 3.5 3 3.5 5.2c0 3.3 3.5 6.3 3.5 6.3s3.5-3 3.5-6.3C10.5 3 8.5 1.5 7 1.5z" fill="#FF6B9D"/></svg>
+        </div>
+        <div class="timeline-year">Tahun 1 — 2023</div>
+        <div class="timeline-text">Awal kita memulai hubungan dengan jarak di antara kita, tapi akhirnya kita bisa bertemu untuk pertama kali nya.</div>
+      </div>
+      <div class="timeline-item" style="animation-delay:0.1s">
+        <div class="timeline-dot">
+          <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="7,1 8.5,5.5 13,5.5 9.5,8.5 10.8,13 7,10 3.2,13 4.5,8.5 1,5.5 5.5,5.5" fill="#FFD700"/></svg>
+        </div>
+        <div class="timeline-year">Tahun 2 — 2024</div>
+        <div class="timeline-text">Rindu mulai jadi teman sehari-hari. Kita belajar percaya, menjaga komunikasi, dan tetap saling memilih meski dipisahkan ratusan bahkan ribuan kilometer.</div>
+      </div>
+      <div class="timeline-item" style="animation-delay:0.2s">
+        <div class="timeline-dot">
+          <svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5" fill="#9B6FD4"/></svg>
+        </div>
+        <div class="timeline-year">Tahun 3 — 2025</div>
+        <div class="timeline-text">Ada banyak ujian, salah paham, dan rasa kangen yang kadang nggak tertahan. Tapi kita berhasil melewatinya bersama. Dari sini aku tahu kalau kamu memang layak diperjuangkan.</div>
+      </div>
+      <div class="timeline-item" style="animation-delay:0.3s">
+        <div class="timeline-dot">
+          <svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 12.5C7 12.5 1.5 8.5 1.5 5C1.5 3 4 1.5 7 4C10 1.5 12.5 3 12.5 5C12.5 8.5 7 12.5 7 12.5z" fill="#FF6B9D"/></svg>
+        </div>
+        <div class="timeline-year">Tahun 4  — 2026</div>
+        <div class="timeline-text">Empat tahun LDR bukan waktu yang sebentar. Empat tahun menunggu, percaya, dan bertahan. Terima kasih sudah tetap di sini, tetap mencintaiku, dan tetap menjadi rumah meski jarak memisahkan kita.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="love-note">
+    <div class="love-note-text">
+      "4 tahun bukan waktu yang sebentar, tapi bersamamu rasanya seperti baru kemarin.<br><br>
+      Terima kasih sudah ada, sudah sabar, sudah tawa, sudah nangis bareng aku.<br><br>
+      Aku nggak perlu waktu lebih lama untuk tahu — kamu adalah rumahku."
+    </div>
+    <div class="love-note-sig">Selalu untukmu</div>
+  </div>
+
+  <div class="wheel-section">
+    <div class="wheel-title">Roulette Date Kita!</div>
+    <div class="wheel-sub">Putar untuk tau mau ngapain hari ini</div>
+    <div style="display:flex;justify-content:center;">
+      <div style="position:relative;display:inline-block;">
+        <canvas id="wheel-canvas" width="260" height="260"></canvas>
+        <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);z-index:10;">
+          <svg width="24" height="24" viewBox="0 0 24 24"><polygon points="12,2 18,14 6,14" fill="#FF6B9D" stroke="white" stroke-width="1.5"/></svg>
+        </div>
+      </div>
+    </div>
+    <br>
+    <button id="spin-btn" onclick="spinWheel()">Putar Roda!</button>
+    <div id="wheel-result"></div>
+  </div>
+
+  <div class="coupons">
+    <div class="coupons-title">Kupon Cinta</div>
+    <div class="coupons-sub">Klik untuk pakai kupon spesial dari aku!</div>
+    <div class="coupon-list">
+      <div class="coupon" id="c1" onclick="useCoupon('c1', 'Video Call', 'Video call tanpa alasan dan tanpa gangguan.')">
+        <div class="coupon-icon"><svg width="42" height="42" viewBox="0 0 42 42"><path d="M21 35C21 35 7 27 7 16.5C7 12 10.5 8 15 8C17.5 8 20 9.5 21 11.5C22 9.5 24.5 8 27 8C31.5 8 35 12 35 16.5C35 27 21 35 21 35Z" fill="#FF6B9D"/></svg></div>
+        <div class="coupon-text">Vidio call</div>
+      </div>
+      <div class="coupon" id="c2" onclick="useCoupon('c2', 'Cerita Sebelum Tidur', 'Nelpon dan nemenin kamu sampai kamu ngantuk.')">
+        <div class="coupon-icon"><svg width="42" height="42" viewBox="0 0 42 42"><ellipse cx="21" cy="28" rx="14" ry="6" fill="#FFD6B0"/><rect x="14" y="10" width="4" height="18" rx="2" fill="#FF9B6B"/><rect x="24" y="10" width="4" height="18" rx="2" fill="#FF9B6B"/><path d="M18 10 Q21 6 24 10" fill="none" stroke="#FF6B00" stroke-width="2"/></svg></div>
+        <div class="coupon-text">Cerita Sebelum Tidur</div>
+      </div>
+      <div class="coupon" id="c3" onclick="useCoupon('c3', 'Voice Note Romantis', 'Dapat voice note manis khusus buat kamu kapan pun diminta.')">
+        <div class="coupon-icon"><svg width="42" height="42" viewBox="0 0 42 42"><rect x="6" y="10" width="30" height="22" rx="4" fill="#D4BBFF"/><polygon points="17,15 31,21 17,27" fill="#9B6FD4"/></svg></div>
+        <div class="coupon-text">Voice Note Romantis</div>
+      </div>
+      <div class="coupon" id="c4" onclick="useCoupon('c4', 'Bebas Minta Apa Aja', 'Boleh minta satu hal yang wajar dan romantis.')">
+        <!-- SVG DI BAWAH INI YANG DIRUBAH JADI SENYUM MANIS -->
+        <div class="coupon-icon"><svg width="42" height="42" viewBox="0 0 42 42"><circle cx="21" cy="21" r="16" fill="#FFF0A0"/><circle cx="15" cy="18" r="2.5" fill="#5A3060"/><circle cx="27" cy="18" r="2.5" fill="#5A3060"/><path d="M14 25 Q21 31 28 25" fill="none" stroke="#5A3060" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <div class="coupon-text">Bebas Minta Apa Aja</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="heart-section">
+    <button id="heart-btn" onclick="addHeart()">
+      <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+      Kirim Cinta
+    </button>
+    <div id="heart-count">Sudah 0 cinta terkirim hari ini</div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-hearts">
+      <svg width="28" height="28" viewBox="0 0 28 28"><path d="M14 24.5l-1.7-1.55C5.6 17.3 2 13.8 2 9.5 2 6.1 4.6 3.5 8 3.5c1.85 0 3.7.85 4.95 2.15C14.2 4.35 16 3.5 18 3.5c3.4 0 6 2.6 6 6C24 13.8 20.4 17.3 13.7 22.95L14 24.5z" fill="#FF6B9D"/></svg>
+      <svg width="28" height="28" viewBox="0 0 28 28"><path d="M14 24.5l-1.7-1.55C5.6 17.3 2 13.8 2 9.5 2 6.1 4.6 3.5 8 3.5c1.85 0 3.7.85 4.95 2.15C14.2 4.35 16 3.5 18 3.5c3.4 0 6 2.6 6 6C24 13.8 20.4 17.3 13.7 22.95L14 24.5z" fill="#D4BBFF"/></svg>
+      <svg width="28" height="28" viewBox="0 0 28 28"><path d="M14 24.5l-1.7-1.55C5.6 17.3 2 13.8 2 9.5 2 6.1 4.6 3.5 8 3.5c1.85 0 3.7.85 4.95 2.15C14.2 4.35 16 3.5 18 3.5c3.4 0 6 2.6 6 6C24 13.8 20.4 17.3 13.7 22.95L14 24.5z" fill="#FFD6B0"/></svg>
+    </div>
+    <div class="footer-text">Happy 4th Anniversary — Selamanya bersamamu</div>
+  </div>
+
+</div>
+
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal-box" style="position:relative;">
+    <button class="modal-close" onclick="document.getElementById('modal').classList.remove('active')">x</button>
+    <div style="font-size:3rem;margin-bottom:0.5rem;" id="modal-icon">
+      <svg width="52" height="52" viewBox="0 0 52 52"><path d="M26 45l-3-2.7C10.5 31.7 4 26.1 4 18.5 4 12.2 8.7 7.5 15 7.5c3.3 0 6.6 1.5 9 4 2.4-2.5 5.7-4 9-4C39.3 7.5 44 12.2 44 18.5c0 7.6-6.5 13.2-19 23.8L26 45z" fill="#FF6B9D"/></svg>
+    </div>
+    <h3 id="modal-title">Judul</h3>
+    <p id="modal-body">Isi pesan</p>
+    <div style="margin-top:1.2rem;">
+      <button onclick="document.getElementById('modal').classList.remove('active')" style="background:linear-gradient(135deg,#FF6B9D,#9B6FD4);border:none;border-radius:50px;padding:0.7rem 2rem;color:white;font-family:'Nunito',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;">Sip!</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== FLOATING PARTICLES =====
+const floatieTypes = [
+  `<svg viewBox="0 0 40 40" width="40" height="40"><path d="M20 34l-2.5-2.3C7.5 23.5 3 19.3 3 14c0-4.7 3.7-8 8-8 2.5 0 5 1.2 7 3.2 2-2 4.5-3.2 7-3.2 4.3 0 8 3.3 8 8 0 5.3-4.5 9.5-14.5 17.7L20 34z" fill="#FFB5C8"/>`,
+  `<svg viewBox="0 0 40 40" width="40" height="40"><polygon points="20,3 23.5,13.5 35,13.5 25.5,20 29,30.5 20,24 11,30.5 14.5,20 5,13.5 16.5,13.5" fill="#FFF0A0"/>`,
+  `<svg viewBox="0 0 40 40" width="40" height="40"><circle cx="20" cy="20" r="5" fill="#FFD6B0"/><ellipse cx="20" cy="9" rx="4" ry="6" fill="#FFB5C8"/><ellipse cx="20" cy="31" rx="4" ry="6" fill="#FFB5C8"/><ellipse cx="9" cy="20" rx="6" ry="4" fill="#D4BBFF"/><ellipse cx="31" cy="20" rx="6" ry="4" fill="#D4BBFF"/><ellipse cx="12" cy="12" rx="4" ry="6" fill="#B8F0D8" transform="rotate(45,12,12)"/><ellipse cx="28" cy="28" rx="4" ry="6" fill="#B8F0D8" transform="rotate(45,28,28)"/><ellipse cx="28" cy="12" rx="4" ry="6" fill="#FFF0A0" transform="rotate(-45,28,12)"/><ellipse cx="12" cy="28" rx="4" ry="6" fill="#FFF0A0" transform="rotate(-45,12,28)"/>`,
+];
+
+const floatieContainer = document.getElementById('floaties');
+function createFloatie() {
+  const el = document.createElement('div');
+  el.className = 'floatie';
+  const t = floatieTypes[Math.floor(Math.random() * floatieTypes.length)];
+  const size = 20 + Math.random() * 30;
+  el.style.cssText = `left:${Math.random()*100}%;width:${size}px;height:${size}px;animation-duration:${6+Math.random()*8}s;animation-delay:${Math.random()*5}s;`;
+  el.innerHTML = t + '</svg>';
+  floatieContainer.appendChild(el);
+  setTimeout(() => el.remove(), 16000);
+}
+setInterval(createFloatie, 800);
+for(let i=0;i<8;i++) setTimeout(createFloatie, i*300);
+
+// ===== MUSIC =====
+const audio = document.getElementById('bgm');
+let playing = false;
+
+function toggleMusic() {
+  const playIcon = document.getElementById('play-icon');
+  const eq = document.getElementById('eq');
+  
+  if (!playing) {
+    audio.play().then(() => {
+        playIcon.innerHTML = '<rect x="5" y="4" width="4" height="16" rx="1"/><rect x="15" y="4" width="4" height="16" rx="1"/>';
+        eq.classList.remove('paused');
+        playing = true;
+    }).catch((err) => {
+        alert("File musik tidak ditemukan! Pastikan kamu sudah menyimpan file bernama 'music.mp3' di folder yang sama.");
+        console.error("Music Play Error:", err);
+    });
+  } else {
+    audio.pause();
+    playIcon.innerHTML = '<polygon points="5,3 19,12 5,21"/>';
+    eq.classList.add('paused');
+    playing = false;
+  }
+}
+
+document.body.addEventListener('click', function tryPlay() {
+  if (!playing) { toggleMusic(); }
+  document.body.removeEventListener('click', tryPlay);
+}, { once: false });
+
+// ===== COUNTDOWN =====
+const startDate = new Date('2021-06-16T00:00:00');
+function updateCountdown() {
+  const now = new Date();
+  const diff = now - startDate;
+  
+  // Kalkulasi dipertahankan hanya untuk jam, menit, dan detik
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const mins = Math.floor((diff % 3600000) / 60000);
+  const secs = Math.floor((diff % 60000) / 1000);
+  
+  // document.getElementById('c-days').textContent = days; (DIMATIKAN, AGAR TETAP 1461)
+  document.getElementById('c-hours').textContent = hours;
+  document.getElementById('c-mins').textContent = mins;
+  document.getElementById('c-secs').textContent = secs;
+  
+  // document.getElementById('stat-days').textContent = days; (DIMATIKAN, AGAR TETAP 1461)
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ===== PHOTO MODAL =====
+function openPhoto(title, body) {
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-body').textContent = body;
+  document.getElementById('modal').classList.add('active');
+  launchConfetti();
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modal')) {
+    document.getElementById('modal').classList.remove('active');
+  }
+}
+
+// ===== CONFETTI =====
+function launchConfetti() {
+  const colors = ['#FFB5C8','#D4BBFF','#FFD6B0','#B8F0D8','#FFF0A0','#FF6B9D','#9B6FD4'];
+  for (let i = 0; i < 35; i++) {
+    setTimeout(() => {
+      const c = document.createElement('div');
+      c.className = 'confetti-piece';
+      c.style.cssText = `left:${20+Math.random()*60}%;top:30%;background:${colors[Math.floor(Math.random()*colors.length)]};width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;transform:rotate(${Math.random()*360}deg);animation-duration:${1.5+Math.random()}s;`;
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 2500);
+    }, i * 50);
+  }
+}
+
+// ===== COUPON =====
+function useCoupon(id, title, body) {
+  const el = document.getElementById(id);
+  if (el.classList.contains('used')) return;
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-body').textContent = body;
+  document.getElementById('modal').classList.add('active');
+  el.classList.add('used');
+  launchConfetti();
+}
+
+// ===== HEART BUTTON =====
+let heartCount = 0;
+function addHeart() {
+  heartCount++;
+  document.getElementById('heart-count').textContent = `Sudah ${heartCount} cinta terkirim hari ini`;
+  launchConfetti();
+
+  const btn = document.getElementById('heart-btn');
+  btn.style.transform = 'scale(1.15) translateY(-5px)';
+  setTimeout(() => btn.style.transform = '', 300);
+
+  const h = document.createElement('div');
+  h.style.cssText = 'position:fixed;left:50%;top:60%;font-size:2rem;pointer-events:none;z-index:9999;animation:floatHeart 1.5s ease forwards;';
+  h.innerHTML = '<svg width="40" height="40" viewBox="0 0 40 40"><path d="M20 34l-2.5-2.3C7.5 23.5 3 19.3 3 14c0-4.7 3.7-8 8-8 2.5 0 5 1.2 7 3.2 2-2 4.5-3.2 7-3.2 4.3 0 8 3.3 8 8 0 5.3-4.5 9.5-14.5 17.7L20 34z" fill="#FF6B9D"/></svg>';
+  document.body.appendChild(h);
+  
+  if (!document.getElementById('heartStyle')) {
+      const style = document.createElement('style');
+      style.id = 'heartStyle';
+      style.textContent = '@keyframes floatHeart{from{opacity:1;transform:translateX(-50%) translateY(0)}to{opacity:0;transform:translateX(-50%) translateY(-120px) scale(1.5)}}';
+      document.head.appendChild(style);
+  }
+  setTimeout(() => h.remove(), 1600);
+}
+
+// ===== SPIN WHEEL =====
+const wheelItems = [
+  { text: 'Pesan manis panjang', color: '#FFB5C8' },
+  { text: 'Video call', color: '#D4BBFF' },
+  { text: 'Kirim lagu favorit', color: '#B8F0D8' },
+  { text: 'Tukar foto hari ini', color: '#FFD6B0' },
+  { text: 'Cerita momen favorit', color: '#FFF0A0' },
+  { text: 'Voice note manis', color: '#FFB5C8' },
+  { text: 'Cerita hal yang dirindukan', color: '#D4BBFF' },
+  { text: 'Buat janji pertemuan', color: '#FF6B9D' },
+];
+
+const canvas = document.getElementById('wheel-canvas');
+const ctx = canvas.getContext('2d');
+let currentAngle = 0;
+let spinning = false;
+
+function drawWheel(angle) {
+  const cx = canvas.width / 2, cy = canvas.height / 2, r = cx - 10;
+  const slice = (Math.PI * 2) / wheelItems.length;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  wheelItems.forEach((item, i) => {
+    const start = angle + i * slice;
+    const end = start + slice;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, r, start, end);
+    ctx.closePath();
+    ctx.fillStyle = item.color;
+    ctx.fill();
+    ctx.strokeStyle = 'white';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(start + slice / 2);
+    ctx.textAlign = 'right';
+    ctx.fillStyle = '#5A3060';
+    ctx.font = 'bold 11px Nunito, sans-serif';
+    ctx.fillText(item.text, r - 10, 4);
+    ctx.restore();
+  });
+
+  ctx.beginPath();
+  ctx.arc(cx, cy, 22, 0, Math.PI * 2);
+  ctx.fillStyle = 'white';
+  ctx.fill();
+  ctx.strokeStyle = '#FF6B9D';
+  ctx.lineWidth = 3;
+  ctx.stroke();
+
+  ctx.fillStyle = '#9B6FD4';
+  ctx.font = 'bold 11px Nunito, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Putar!', cx, cy + 4);
+}
+
+drawWheel(0);
+
+function spinWheel() {
+  if (spinning) return;
+  spinning = true;
+  document.getElementById('spin-btn').disabled = true;
+  document.getElementById('wheel-result').textContent = '';
+
+  const totalRot = Math.PI * 2 * (6 + Math.random() * 4);
+  const duration = 3500;
+  const start = performance.now();
+  const startAng = currentAngle;
+
+  function animate(now) {
+    const t = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - t, 4);
+    currentAngle = startAng + totalRot * eased;
+    drawWheel(currentAngle);
+
+    if (t < 1) {
+      requestAnimationFrame(animate);
+    } else {
+      spinning = false;
+      document.getElementById('spin-btn').disabled = false;
+
+      const slice = (Math.PI * 2) / wheelItems.length;
+      const normalized = ((Math.PI * 1.5) - currentAngle % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2);
+      const idx = Math.floor(normalized / slice) % wheelItems.length;
+      const winner = wheelItems[idx];
+      document.getElementById('wheel-result').textContent = 'Yay! Date kita: ' + winner.text + '!';
+      launchConfetti();
+    }
+  }
+
+  requestAnimationFrame(animate);
+}
+</script>
+</body>
+</html>
